@@ -1,20 +1,23 @@
-import Exceptions.WrongDateException;
+import Exceptions.WrongInputException;
 
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws WrongDateException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String surname, name, patronymic, birth_date_string;
+        String info;
 
-        System.out.print("Введите ФИО и дату рождения (day.month.year): ");
-        surname = scanner.next();
-        name = scanner.next();
-        patronymic = scanner.next();
-        birth_date_string = scanner.next();
+        try {
+            System.out.print("Введите ФИО и дату рождения (DD.MM.YYYY): ");
+            info = scanner.nextLine();
+            String[] info_parsed = info.split(" ");
+            if (info_parsed.length != 4) throw new WrongInputException("Wrong input format");
 
-        PersonIdentifier person = new PersonIdentifier(surname, name, patronymic, birth_date_string);
+            PersonIdentifier person = new PersonIdentifier(info_parsed);
 
-        System.out.println(surname + ' ' + name + ' ' + patronymic + ' ' + birth_date_string);
+            person.printInfo();
+        } catch (WrongInputException | NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
