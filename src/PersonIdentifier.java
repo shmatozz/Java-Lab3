@@ -3,6 +3,7 @@ import Exceptions.WrongInputException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.GregorianCalendar;
 
 public class PersonIdentifier {
@@ -43,6 +44,8 @@ public class PersonIdentifier {
             throw new NumberFormatException("Дата рождения не может содержать строки");
         } catch (WrongInputException e) {
             throw new WrongInputException(e.getMessage());
+        } catch (DateTimeParseException e) {
+            throw new WrongInputException("Дата рождения должна быть в формате DD.MM.YYYY");
         }
     }
 
