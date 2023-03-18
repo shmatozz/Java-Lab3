@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8071a0d-69a0-4957-9e15-2a8ca6ce83e1" name="Changes" comment="add date check, WrongDateException">
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/WrongInputException.java" afterDir="false" />
+    <list default="true" id="b8071a0d-69a0-4957-9e15-2a8ca6ce83e1" name="Changes" comment="add name check, printing info">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exceptions/WrongDateException.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PersonIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonIdentifier.java" afterDir="false" />
     </list>
@@ -72,7 +70,8 @@
       <updated>1678961817483</updated>
       <workItem from="1678961818499" duration="79000" />
       <workItem from="1678964387798" duration="11348000" />
-      <workItem from="1679135978898" duration="5117000" />
+      <workItem from="1679135978898" duration="5939000" />
+      <workItem from="1679158036134" duration="2771000" />
     </task>
     <task id="LOCAL-00001" summary="add date check, WrongDateException">
       <created>1678971993376</created>
@@ -81,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678971993376</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add name check, printing info">
+      <created>1679141576239</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679141576239</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,7 +95,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add date check, WrongDateException" />
-    <option name="LAST_COMMIT_MESSAGE" value="add date check, WrongDateException" />
+    <MESSAGE value="add name check, printing info" />
+    <option name="LAST_COMMIT_MESSAGE" value="add name check, printing info" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

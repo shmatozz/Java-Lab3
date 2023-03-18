@@ -5,21 +5,34 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.GregorianCalendar;
 
-
 public class PersonIdentifier {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    // формат для парсинга даты рождения
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    // список количества дней в каждом месяце по индексу
     private static final Integer[] days_in_months = new Integer[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    String surname, name, patronymic;
-    LocalDate birth_date;
+    String surname, name, patronymic;   // ФИО
+    LocalDate birth_date;   // дата рождения
+    char sex;   // пол
+    int age;    // возраст
 
-    private final char sex;
-    int age;
-
+    /**
+     * Конструктор
+     * @param info массив аргументов
+     *             info[0] - Фамилия
+     *             info[1] - Имя
+     *             info[2] - Отчество
+     *             info[3] - Дата рождения
+     * @throws WrongInputException в случае неверного формата введёных данных
+     */
     PersonIdentifier(String[] info) throws WrongInputException {
         try {
+            if (info.length != 4) throw new WrongInputException("Неверные входные данные");
+
             checkDate(info[3]); // проверка даты
             checkName(info[0], info[1], info[2]);   // проверка ФИО
+
+            // Делаем первую букву фамилии заглавной на случай, если пользователь ввёл со строчной
             this.surname = info[0].substring(0, 1).toUpperCase() + info[0].substring(1);
             this.name = info[1];
             this.patronymic = info[2];
@@ -33,11 +46,13 @@ public class PersonIdentifier {
         }
     }
 
+    // вывод информации о человеке, Фамилия Инициалы Пол Возраст
     void printInfo() {
         System.out.print(surname + ' ' +
                 name.substring(0, 1).toUpperCase() + '.' +
-                patronymic.substring(0, 1).toUpperCase() + ". " +
-                sex + ' ' + age + ' ');
+                (!patronymic.equals("-") ? patronymic.substring(0, 1).toUpperCase() + ". " : ' ') +
+                sex + ' ' +
+                age + ' ');
         if (age % 10 == 0 || age % 10 >= 5 || (10 <= age && age <= 20)) {
             System.out.println("лет");
         } else if (age % 10 == 1) {
@@ -47,10 +62,11 @@ public class PersonIdentifier {
         }
     }
 
-    private void checkDate(String birth_date_string) throws WrongInputException { // проверка даты на правильность
+    // проверка даты
+    private void checkDate(String birth_date_string) throws WrongInputException {
         String[] split_birth_date = birth_date_string.split("\\.");
         if (split_birth_date.length != 3) {
-            throw new WrongInputException("Неверно введена дата"); // если в дате не 3 числа
+            throw new WrongInputException("Неверный формат даты"); // если в дате не 3 числа, разделённые точкой
         }
 
         int day = Integer.parseInt(split_birth_date[0]), // достаём день
@@ -76,17 +92,25 @@ public class PersonIdentifier {
         }
     }
 
+    // проверка ФИО
     private void checkName(String surname, String name, String patronymic) throws WrongInputException {
-        if (surname.matches("^[a-zA-Z]*$") || name.matches("^[a-zA-Z]*$") || patronymic.matches("^[a-zA-Z]*$")) {
-            throw new WrongInputException("ФИО не должно содержать символы английского алфавита");
+        if (!surname.matches("^[а-яА-Я]*$") || !name.matches("^[а-яА-Я]*$") || !patronymic.matches("^[а-яА-Я-]*$")) {
+            throw new WrongInputException("ФИО должно содержать только символы русского алфавита");
         }
     }
 
+    // определение пола по отчеству или фамилии
     private char getSex(String patronymic) {
         if (patronymic.endsWith("ич") || patronymic.endsWith("лы")) return 'M';
-        else return 'Ж';
+        else if (patronymic.endsWith("на") || patronymic.endsWith("зы")) return 'Ж';
+
+        if (surname.endsWith("в")) return 'M';
+        else if (surname.endsWith("ва")) return 'Ж';
+
+        return '-';
     }
 
+    // проверка года на високосность
     private boolean isLeap(int year) {
         return new GregorianCalendar().isLeapYear(year);
     }

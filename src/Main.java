@@ -8,10 +8,9 @@ public class Main {
         String info;
 
         try {
-            System.out.print("Введите ФИО и дату рождения (DD.MM.YYYY): ");
+            System.out.println("Введите ФИО и дату рождения (DD.MM.YYYY):");
             info = scanner.nextLine();
             String[] info_parsed = info.split(" ");
-            if (info_parsed.length != 4) throw new WrongInputException("Wrong input format");
 
             PersonIdentifier person = new PersonIdentifier(info_parsed);
 
